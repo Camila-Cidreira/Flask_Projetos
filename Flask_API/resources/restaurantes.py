@@ -31,8 +31,27 @@ class Restaurantes(Resource):
     def get(self):
         return {"Restaurantes" : restaurantes}
         
-if __name__ == "__main__":
-    print(__doc__)
 
 class Restaurante(Resource):
+    def get(self, restaurante_id):
 
+        for restaurante in restaurantes:
+            if restaurante('restaurante_id') == restaurante_id:
+                return restaurante
+        return {'message': 'Restaurante not found.'}, 404
+
+    def post(self, restaurante_id):
+
+        pass
+
+    def put(self, restaurante_id):
+
+        pass
+
+    def delete(self, restaurante_id):
+
+        pass
+
+
+if __name__ == "__main__":
+    print(__doc__)
