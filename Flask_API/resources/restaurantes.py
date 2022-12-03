@@ -1,4 +1,4 @@
-''' MÓDULO DE RESTAURANTES '''
+
 
 from flask_restful import Resource
 
@@ -53,5 +53,3 @@ class Restaurante(Resource):
         pass
 
 
-if __name__ == "__main__":
-    print(__doc__)
