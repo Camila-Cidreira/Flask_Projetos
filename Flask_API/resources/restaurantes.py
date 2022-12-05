@@ -1,6 +1,6 @@
 
 
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 
 
 restaurantes = [
@@ -36,13 +36,33 @@ class Restaurante(Resource):
     def get(self, restaurante_id):
 
         for restaurante in restaurantes:
-            if restaurante('restaurante_id') == restaurante_id :
+            if restaurante.get('restaurante_id') == restaurante_id :
                 return restaurante
         return {'message': 'Restaurante not found.'}, 404
 
     def post(self, restaurante_id):
+        argumentos = reqparse.RequestParser()
+        argumentos.add_argument('nome')
+        argumentos.add_argument('estrelas')
+        argumentos.add_argument('valor médio')
+        argumentos.add_argument('cidade')
 
-        pass
+        dados = argumentos.parse_args()
+
+        novo_restaurante = {
+            'restaurante_id': restaurante_id,
+            'nome': dados['nome'],
+            'estrelas': dados['estrelas'],
+            'valor médio': dados['valor médio'],
+            'cidade': dados['cidade']
+        }
+
+        restaurantes.append(novo_restaurante)
+        return novo_restaurante, 200
+
+
+
+        
 
     def put(self, restaurante_id):
 
