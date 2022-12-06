@@ -33,11 +33,20 @@ class Restaurantes(Resource):
         
 
 class Restaurante(Resource):
-    def get(self, restaurante_id):
-
+    
+    def find_restaurante(restaurante_id):
         for restaurante in restaurantes:
             if restaurante.get('restaurante_id') == restaurante_id :
                 return restaurante
+        return {'message': 'Restaurante not found.'}, 404
+        
+
+    def get(self, restaurante_id):
+
+        restaurante = Restaurante.find_restaurante(restaurante_id)
+        
+        if restaurante:
+            return restaurante
         return {'message': 'Restaurante not found.'}, 404
 
     def post(self, restaurante_id):
