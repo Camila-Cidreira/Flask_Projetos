@@ -74,8 +74,11 @@ class Restaurante(Resource):
         
 
     def put(self, restaurante_id):
+        
+        restaurante = Restaurante.find_restaurante(restaurante_id=)
 
-        pass
+        if restaurante:
+            restaurante.update(novo_restaurante)
 
     def delete(self, restaurante_id):
 
