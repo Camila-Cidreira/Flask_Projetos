@@ -33,6 +33,13 @@ class Restaurantes(Resource):
         
 
 class Restaurante(Resource):
+
+    argumentos = reqparse.RequestParser()
+    argumentos.add_argument('nome')
+    argumentos.add_argument('estrelas')
+    argumentos.add_argument('valor médio')
+    argumentos.add_argument('cidade')
+    
     
     def find_restaurante(restaurante_id):
         for restaurante in restaurantes:
@@ -50,13 +57,9 @@ class Restaurante(Resource):
         return {'message': 'Restaurante not found.'}, 404
 
     def post(self, restaurante_id):
-        argumentos = reqparse.RequestParser()
-        argumentos.add_argument('nome')
-        argumentos.add_argument('estrelas')
-        argumentos.add_argument('valor médio')
-        argumentos.add_argument('cidade')
+       
 
-        dados = argumentos.parse_args()
+        dados = Restaurante.argumentos.parse_args()
 
         novo_restaurante = {
             'restaurante_id': restaurante_id,
@@ -68,17 +71,19 @@ class Restaurante(Resource):
 
         restaurantes.append(novo_restaurante)
         return novo_restaurante, 200
-
-
-
-        
+   
 
     def put(self, restaurante_id):
         
-        restaurante = Restaurante.find_restaurante(restaurante_id=)
+        restaurante = Restaurante.find_restaurante(restaurante_id)
+        dados = Restaurante.argumentos.parse_args()
+        novo_restaurante = {"restaurante_id": restaurante_id, **dados}
 
         if restaurante:
             restaurante.update(novo_restaurante)
+            return novo_restaurante, 200 #200 criado
+        restaurantes.append(novo_restaurante)
+        return novo_restaurante, 201# hotel criado
 
     def delete(self, restaurante_id):
 
